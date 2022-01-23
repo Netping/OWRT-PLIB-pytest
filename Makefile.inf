@@ -1,0 +1,63 @@
+SECTION="NetPing modules"
+CATEGORY="Base"
+TITLE="EPIC OWRT-PLIB-pytest"
+
+PKG_NAME="OWRT-PLIB-pytest"
+PKG_VERSION=6.2.5-1
+PKG_RELEASE=1
+PKG_DEPENDS=
+
+MODULE_NAME = owrt_plib_pytest
+MODULE_FILES_DIR = /usr/lib/python3.7/site-packages/
+
+define MODULE_FILES
+	_pytest
+	attr
+	attrs
+	importlib_metadata
+	iniconfig
+	packaging
+	pluggy
+	py
+	pyparsing
+	pytest
+	toml
+	pluggy-1.0.0.dist-info
+	typing_extensions-4.0.1.dist-info
+	pyparsing-3.0.7.dist-info
+	iniconfig-1.1.1.dist-info
+	importlib_metadata-4.10.1.dist-info
+	toml-0.10.2.dist-info
+	py-1.11.0.dist-info
+	pytest-6.2.5.dist-info
+	packaging-21.3.dist-info
+	attrs-21.4.0.dist-info
+	zipp-3.7.0.dist-info
+	typing_extensions.py
+	zipp.py
+endef
+
+BIN_FILES_DIR = /usr/bin/
+INSTALL_DIR=
+
+.PHONY: all install clean
+
+all: configure build install
+
+configure:
+	@echo "Nothing to do"
+
+build:
+	@echo "Nothing to do"
+
+install:
+ifeq ($(origin INSTALL_DIR),command line)
+	for dir in $(MODULE_FILES_DIR) $(BIN_FILES_DIR); do mkdir -p $(INSTALL_DIR)$${dir}; done
+endif
+	for f in $(strip $(MODULE_FILES)); do cp -r site-packages/$${f} $(INSTALL_DIR)$(MODULE_FILES_DIR); done
+	cp bin/* $(INSTALL_DIR)$(BIN_FILES_DIR)
+
+clean:
+	for f in $(strip $(MODULE_FILES)); do rm -rf $(MODULE_FILES_DIR)$${f}; done
+	rm $(BIN_FILES_DIR)py.test
+	rm $(BIN_FILES_DIR)pytest
