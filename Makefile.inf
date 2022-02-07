@@ -1,6 +1,6 @@
 SECTION="NetPing modules"
 CATEGORY="Base"
-TITLE="EPIC OWRT-PLIB-pytest"
+TITLE="OWRT-PLIB-pytest"
 
 PKG_NAME="OWRT-PLIB-pytest"
 PKG_VERSION=6.2.5-1
