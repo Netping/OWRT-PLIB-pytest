@@ -14,7 +14,6 @@ define MODULE_FILES
 	_pytest
 	attr
 	attrs
-	importlib_metadata
 	iniconfig
 	packaging
 	pluggy
@@ -23,18 +22,13 @@ define MODULE_FILES
 	pytest
 	toml
 	pluggy-1.0.0.dist-info
-	typing_extensions-4.0.1.dist-info
 	pyparsing-3.0.7.dist-info
 	iniconfig-1.1.1.dist-info
-	importlib_metadata-4.10.1.dist-info
 	toml-0.10.2.dist-info
 	py-1.11.0.dist-info
 	pytest-6.2.5.dist-info
 	packaging-21.3.dist-info
 	attrs-21.4.0.dist-info
-	zipp-3.7.0.dist-info
-	typing_extensions.py
-	zipp.py
 endef
 
 BIN_FILES_DIR = /usr/bin/
@@ -42,7 +36,12 @@ INSTALL_DIR=
 
 .PHONY: all install clean
 
-all: configure build install
+all: build preinstall install configure
+
+ipk: build install
+
+preinstall:
+	@echo "Nothing to do"
 
 configure:
 	@echo "Nothing to do"
