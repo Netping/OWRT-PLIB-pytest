@@ -4,11 +4,13 @@ TITLE="OWRT-PLIB-pytest"
 
 PKG_NAME="OWRT-PLIB-pytest"
 PKG_VERSION=6.2.5-1
-PKG_RELEASE=1
+PKG_RELEASE=2
 PKG_DEPENDS=
 
 MODULE_NAME = owrt_plib_pytest
 MODULE_FILES_DIR = /usr/lib/python3.7/site-packages/
+
+TESTS_SRC_DIR = Tests/
 
 define MODULE_FILES
 	_pytest
@@ -52,11 +54,15 @@ build:
 install:
 ifeq ($(origin INSTALL_DIR),command line)
 	for dir in $(MODULE_FILES_DIR) $(BIN_FILES_DIR); do mkdir -p $(INSTALL_DIR)$${dir}; done
+	mkdir -p $(INSTALL_DIR)${MODULE_FILES_DIR}/$(MODULE_NAME)
 endif
+	mkdir -p $(INSTALL_DIR)${MODULE_FILES_DIR}/$(MODULE_NAME)
 	for f in $(strip $(MODULE_FILES)); do cp -r site-packages/$${f} $(INSTALL_DIR)$(MODULE_FILES_DIR); done
 	cp bin/* $(INSTALL_DIR)$(BIN_FILES_DIR)
+	cp -r $(TESTS_SRC_DIR) $(INSTALL_DIR)$(MODULE_FILES_DIR)$(MODULE_NAME)/$(TESTS_SRC_DIR)
 
 clean:
 	for f in $(strip $(MODULE_FILES)); do rm -rf $(MODULE_FILES_DIR)$${f}; done
 	rm $(BIN_FILES_DIR)py.test
 	rm $(BIN_FILES_DIR)pytest
+	rm -r $(INSTALL_DIR)$(MODULE_FILES_DIR)$(MODULE_NAME)
